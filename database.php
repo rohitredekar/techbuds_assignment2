@@ -26,50 +26,41 @@ class database{
 
 	}
 
-
-
-
 	public function insert($fname,$gender,$designation,$city)
 	{
-		$sql="INSERT INTO employee_details(`name`,`gender`,`designation`,`city`) VALUES('$fname','$gender','$designation','$city')";
-
-		if($this->mysqli->query($sql)){
-		array_push($this->result, $this->mysqli->insert_id);
-		return false;
-		}else{
-		array_push($this->result, $this->mysqli->error);
-		return false;
-
-		}
+		$this->sql="INSERT INTO employee_details(`name`,`gender`,`designation`,`city`) VALUES('$fname','$gender','$designation','$city')";
+		$this->result = mysqli_query($this->mysqli,$this->sql);
+		return $this->result; 
+		
 	}
 
 
   public function update($id,$name,$gender,$designation,$city)
   {
      
-		$sql = "update employee_details set name='$name', gender='$gender', designation='$designation', city='$city' where id='$id'";
-		$result = mysqli_query($this->mysqli,$sql);
-		return $result;
+		$this->sql = "update employee_details set name='$name', gender='$gender', designation='$designation', city='$city' where id='$id'";
+		$this->result = mysqli_query($this->mysqli,$this->sql);
+		return $this->result;
    }
 
 
 	public function delete($id)
 	{
-		$sql="DELETE FROM employee_details WHERE id=$id";
-		$result2=mysqli_query($this->mysqli,$sql);
-		return $result2;
+		$this->sql="DELETE FROM employee_details WHERE id=$id";
+		$this->result2=mysqli_query($this->mysqli,$this->sql);
+		return $this->result2;
 	}
 
 	
 
 	public function select()
 	{
-		$query = "SELECT * FROM employee_details";
-		$result = mysqli_query($this->mysqli, $query);
-		while ($row = mysqli_fetch_array($result)) {
-		$data[] = $row;
+		$this->query = "SELECT * FROM employee_details";
+		$this->result = mysqli_query($this->mysqli, $this->query);
+		while ($this->row = mysqli_fetch_array($this->result)) {
+		$this->data[] = $this->row;
 		}
-		return $data;
+		return $this->data;
 	}
 
 
